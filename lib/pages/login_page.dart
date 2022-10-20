@@ -8,10 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
-  final _repPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +20,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-          const Image(image:AssetImage('assets/images/logo.png')),
               const SizedBox(
                 height: 16.0,
-              ),
-              TextFormField(
-                controller: _name,
-                    decoration: const InputDecoration(
-                  border:  OutlineInputBorder(), labelText: 'Nombre'),
-        keyboardType: TextInputType.text,
               ),
               const SizedBox(
                 height: 16.0,
@@ -38,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: _email,
                 decoration: const InputDecoration(
-                    border:  OutlineInputBorder(), labelText: 'Correo'),
+                    border:  OutlineInputBorder(), labelText: 'Hola'),
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(
@@ -53,12 +44,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 16.0,
               ),
-              TextFormField(
-                controller: _repPassword,
-                decoration: const InputDecoration(
-                    border:  OutlineInputBorder(), labelText: 'Confirmar Contraseña'),
-                keyboardType: TextInputType.text,
-              ),
+              const Image(image:AssetImage('assets/images/logo.png')),
             ],
           )
 
