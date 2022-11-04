@@ -30,9 +30,9 @@ class _SplashPageState extends State<SplashPage> {
           image: DecorationImage(
               image: AssetImage('assets/images/splash.png'),
               fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8), BlendMode.modulate)),
-        ),
+              //colorFilter: ColorFilter.mode(
+                  //Colors.white.withOpacity(0.8), BlendMode.modulate)),
+          )),
       ),
     );
   }

@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:untitled2/pages/login_page.dart';
+import 'package:untitled2/firebase_options.dart';
 import 'package:untitled2/pages/splash_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    name: 'Amazonas',
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const MyApp());
 }
 
