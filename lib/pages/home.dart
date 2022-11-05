@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/splash.png'),
+              image: const AssetImage('assets/images/splash.png'),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.modulate)),
         ),
@@ -46,16 +46,16 @@ class _HomeState extends State<Home> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Container(
+                            SizedBox(
                               height: size.height * 0.25,
-                              child: Image(
+                              child: const Image(
                                 image: AssetImage('assets/images/amazonas.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
                             Container(
                               child: Container(
-                              padding: EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
+                              padding: const EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
                               height: size.height * 0.55,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(32),
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Amazonas",
                                       style: TextStyle(
                                         color: Colors.black,
@@ -73,9 +73,9 @@ class _HomeState extends State<Home> {
                                         fontSize: 26,
                                       )
                                     ),
-                                    SizedBox(height: 4),
+                                    const SizedBox(height: 4),
                                     Row(
-                                      children: [
+                                      children: const [
                                         Icon(
                                           Icons.location_pin,
                                           size: 14,
@@ -92,8 +92,8 @@ class _HomeState extends State<Home> {
                                         )
                                       ]
                                     ),
-                                    SizedBox(height: 8),
-                                    Text(
+                                    const SizedBox(height: 8),
+                                    const Text(
                                       "Description",
                                       style: TextStyle(
                                         color: Colors.black,
@@ -101,8 +101,8 @@ class _HomeState extends State<Home> {
                                         fontSize: 20,
                                       )
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "Está ubicado en el extremo sur del país, en gran parte al sur de la línea ecuatorial, en la región Amazonia.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -114,8 +114,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "Se compone en su totalidad de territorio de la Selva Amazónica. La porción meridional del departamento, al sur del río Putumayo, se denomina `Trapecio amazónico`, el cual incluye la triple frontera de Colombia, Perú y Brasil, y su límite sur es el río Amazonas.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -127,10 +127,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text("Hidrografía",
+                                    const SizedBox(height: 8),
+                                    const Text("Hidrografía",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -138,8 +136,8 @@ class _HomeState extends State<Home> {
                                         )
                                         //.merge(TextStyle(color: Colors.black)),
                                         ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "Además del Amazonas, otros ríos del departamento son:",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -151,8 +149,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Río Caquetá: el principal tributario del Amazonas.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -164,8 +162,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Río Putumayo: que marca el límite con Perú.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -177,8 +175,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Río Apaporis: que marca el límite septentrional con el departamento del Vaupés.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -190,10 +188,10 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
-                                    Text("Parques naturales",
+                                    const Text("Parques naturales",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -201,8 +199,8 @@ class _HomeState extends State<Home> {
                                         )
                                         //.merge(TextStyle(color: Colors.black)),
                                         ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "El departamento, dada su gran riqueza ecológica y medio ambiental, es sede de varios parques naturales nacionales colombianos:",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -214,8 +212,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Parque nacional natural Amacayacu.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -227,8 +225,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Parque nacional natural Cahuinarí.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -240,8 +238,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Parque nacional natural Río Puré.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -253,8 +251,8 @@ class _HomeState extends State<Home> {
                                         height: 1.4,
                                         ),
                                     ),
-                                    SizedBox(height: 12),
-                                    Text(
+                                    const SizedBox(height: 12),
+                                    const Text(
                                       "+ Parque nacional natural Yaigojé Apaporis.",
                                       maxLines: 4,
                                       overflow: TextOverflow.fade,
@@ -306,8 +304,6 @@ class _HomeState extends State<Home> {
                                           child: FloatingActionButton(
                                               backgroundColor:
                                                   Colors.lightGreen,
-                                              child:
-                                                  Icon(Icons.shopping_basket),
                                               elevation: 0.1,
                                               onPressed: () {
                                                 Navigator.push(
@@ -317,7 +313,9 @@ class _HomeState extends State<Home> {
                                                             ShopPage()));
 
                                                 setBottomBarIndex(0);
-                                              }),
+                                              },
+                                              child:
+                                                  const Icon(Icons.shopping_basket)),
                                         ),
                                         Container(padding:const EdgeInsets.symmetric(
                                             vertical: 0, horizontal: 0),
@@ -378,7 +376,7 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ),
                                               SizedBox.fromSize(
-                                                size: Size(60, 60),
+                                                size: const Size(60, 60),
                                                 // button width and height
                                                 child: ClipOval(
                                                   child: Material(
@@ -433,7 +431,7 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ),
                                               SizedBox.fromSize(
-                                                size: Size(60, 60),
+                                                size: const Size(60, 60),
                                                 // button width and height
 
                                                 child: Column(
@@ -442,7 +440,7 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ),
                                               SizedBox.fromSize(
-                                                size: Size(60, 60),
+                                                size: const Size(60, 60),
                                                 child: ClipOval(
                                                   child: Material(
                                                     color: Colors.transparent,
@@ -496,7 +494,7 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ),
                                               SizedBox.fromSize(
-                                                size: Size(60, 60),
+                                                size: const Size(60, 60),
                                                 child: ClipOval(
                                                   child: Material(
                                                     color: Colors.transparent,
