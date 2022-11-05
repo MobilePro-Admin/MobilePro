@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget Rating({double rating = 0.0, Color color:Colors.white}) {
+Widget rating({double rating = 0.0, Color color = Colors.white}) {
   return Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,
@@ -14,18 +14,18 @@ Widget Rating({double rating = 0.0, Color color:Colors.white}) {
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              if (rating > index && rating < index + 1)
-                return Icon(Icons.star_half, color: Colors.yellow, size: 16);
-              else if (index < rating)
-                return Icon(
+              if (rating > index && rating < index + 1) {
+                return const Icon(Icons.star_half, color: Colors.yellow, size: 16);
+              } else if (index < rating) {
+                return const Icon(
                   Icons.star,
                   color: Colors.yellow,
                   size: 16,
                 );
-
-              return Icon(Icons.star_border, color: Colors.yellow, size: 16);
+              };
+              return const Icon(Icons.star_border, color: Colors.yellow, size: 16);
             }),
-            SizedBox(width: 8,),
+            const SizedBox(width: 8,),
         Text(
           rating.toString(),
           style: TextStyle(
