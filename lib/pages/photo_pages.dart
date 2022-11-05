@@ -2,12 +2,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled2/pages/shop_page.dart';
-import 'package:untitled2/pages/components/homepageStateProvider.dart';
-import 'package:untitled2/pages/components/travelplacedart.dart';
 import 'package:untitled2/pages/home.dart';
-import 'package:untitled2/pages/login_page.dart';
+import 'package:untitled2/pages/shop_page.dart';
 import 'package:untitled2/pages/maps_page.dart';
+import 'package:untitled2/pages/login_page.dart';
+import 'package:untitled2/pages/details_page.dart';
+import 'package:untitled2/pages/components/homepageStateProvider.dart';
+import 'package:untitled2/pages/components/travelplace.dart';
+
 
 class PhotoPage extends StatefulWidget {
   @override
@@ -25,96 +27,101 @@ class _PhotoPageState extends State<PhotoPage> {
 
   @override
   Widget build(BuildContext context) {
-    HomePageStateProvider homepagestate =
-      Provider.of<HomePageStateProvider>(context);
+    HomePageStateProvider homepagestate = Provider.of<HomePageStateProvider>(context);
     final Size size = MediaQuery.of(context).size;
-    ThemeData appTheme = Theme.of(context);
     return Scaffold(
         body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/splash.png'),
+                  image: const AssetImage('assets/images/splash.png'),
                   fit: BoxFit.fill,
                   colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.screen)
               ),
             ),
             child: Column(children: <Widget>[
-              Container(
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 20),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: size.height * 0.25,
-                              child: Image(
-                                image: AssetImage('assets/images/gallery.png'),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(top: 26, left: 20, right: 20),
-                              height: size.height * 0.55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(32),
-                                color: Colors.white,
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Lugares turísticos",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.all(16),
-                                      child: StreamBuilder(
-                                          stream: homepagestate.getAllPlaces().asStream(),
-                                          builder: (context, snapshot) {
-                                            if (!snapshot.hasData) {
-                                              return Container(
-                                                  alignment: Alignment.center,
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: const CircularProgressIndicator());
-                                            }
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return Container(
-                                                  alignment: Alignment.center,
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: const CircularProgressIndicator());
-                                            }
-                                            return GridView.builder(
-                                                itemCount: snapshot.data?.length,
-                                                shrinkWrap: true,
-                                                primary: false,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                        mainAxisSpacing: 16,
-                                                        crossAxisSpacing: 16,
-                                                        crossAxisCount: 2),
-                                                itemBuilder: (context, index) {
-                                                  return GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.pushNamed(context, "/view");
-                                                      },
-                                                      child: TravelCard(snapshot.data![index]));
-                                                });
-                                          }),
-                                    ),
-                                  ]),
-                              ),
-                            ),
-                          ],
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 20),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: size.height * 0.25,
+                          child: const Image(
+                            image: AssetImage('assets/images/gallery.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                      ))),
+                        Container(
+                          padding: const EdgeInsets.only(top: 26, left: 20, right: 20),
+                          height: size.height * 0.55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            color: Colors.white,
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugares turísticos",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.all(16),
+                                  child: StreamBuilder(
+                                      stream: homepagestate.getAllPlaces().asStream(),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return Container(
+                                              alignment: Alignment.center,
+                                              width: 50,
+                                              height: 50,
+                                              child: const CircularProgressIndicator());
+                                        }
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return Container(
+                                              alignment: Alignment.center,
+                                              width: 50,
+                                              height: 50,
+                                              child: const CircularProgressIndicator());
+                                        }
+                                        return GridView.builder(
+                                            itemCount: snapshot.data?.length,
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    mainAxisSpacing: 16,
+                                                    crossAxisSpacing: 16,
+                                                    crossAxisCount: 2),
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => DetailsPage()
+                                                        ),
+                                                    );
+                                                  },
+                                                  child: travelCard(snapshot.data![index]),
+                                              );
+                                            },
+                                        );
+                                      },
+                                  ),
+                                ),
+                              ]),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
 
               // Padding(padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               Container(
@@ -138,14 +145,14 @@ class _PhotoPageState extends State<PhotoPage> {
                               heightFactor: 1.5,
                               child: FloatingActionButton(
                                   backgroundColor: Colors.lightGreen,
-                                  child: Icon(Icons.shopping_basket),
                                   elevation: 0.1,
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ShopPage()));
-                                  }),
+                                  },
+                                  child: const Icon(Icons.shopping_basket)),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -159,7 +166,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                     CrossAxisAlignment.values[1],
                                 children: [
                                   SizedBox.fromSize(
-                                    size: Size(60, 60),
+                                    size: const Size(60, 60),
                                     // button width and height
                                     child: ClipOval(
                                       child: Material(
@@ -171,10 +178,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                           onTap: () {
                                             Navigator.push(
                                                 context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Home()));
-
+                                                MaterialPageRoute( builder: (context) => const Home()));
                                             setBottomBarIndex(1);
                                           },
                                           // button pressed
@@ -205,7 +209,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                     ),
                                   ),
                                   SizedBox.fromSize(
-                                    size: Size(60, 60),
+                                    size: const Size(60, 60),
                                     child: ClipOval(
                                       child: Material(
                                         color: Colors.transparent,
@@ -242,7 +246,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                     ),
                                   ),
                                   SizedBox.fromSize(
-                                    size: Size(60, 60),
+                                    size: const Size(60, 60),
                                     // button width and height
 
                                     child: Column(
@@ -251,7 +255,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                     ),
                                   ),
                                   SizedBox.fromSize(
-                                    size: Size(60, 60),
+                                    size: const Size(60, 60),
                                     child: ClipOval(
                                       child: Material(
                                         color: Colors.transparent,
@@ -296,7 +300,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                     ),
                                   ),
                                   SizedBox.fromSize(
-                                    size: Size(60, 60),
+                                    size: const Size(60, 60),
                                     child: ClipOval(
                                       child: Material(
                                         color: Colors.transparent,
@@ -359,7 +363,7 @@ class _PhotoPageState extends State<PhotoPage> {
 class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = new Paint()
+    Paint paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
 
@@ -368,7 +372,7 @@ class BNBCustomPainter extends CustomPainter {
     path.quadraticBezierTo(size.width * 0.20, 20, size.width * 0.35, 20);
     path.quadraticBezierTo(size.width * 0.40, 20, size.width * 0.40, 40);
     path.arcToPoint(Offset(size.width * 0.60, 40),
-        radius: Radius.circular(20.0), clockwise: false);
+        radius: const Radius.circular(20.0), clockwise: false);
     path.quadraticBezierTo(size.width * 0.60, 20, size.width * 0.65, 20);
     path.quadraticBezierTo(size.width * 0.80, 20, size.width, 40);
     path.lineTo(size.width, size.height);
