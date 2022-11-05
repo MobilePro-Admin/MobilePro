@@ -3,13 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:untitled2/pages/photo_pages.dart';
 import 'package:untitled2/pages/shop_page.dart';
-import 'package:untitled2/services/firebase_services.dart';
+//import 'package:untitled2/services/firebase_services.dart';
 import 'login_page.dart';
 import 'maps_page.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -24,14 +26,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ThemeData appTheme = Theme.of(context);
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/splash.png'),
               fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8), BlendMode.modulate)),
+              colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.modulate)),
         ),
         child: Scaffold(
           backgroundColor: Colors.white.withOpacity(0.5),
@@ -41,8 +41,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 Container(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 1, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 16),
                     child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,151 +54,219 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Container(
-                                child: Container(
-                              padding:
-                                  EdgeInsets.only(top: 26, left: 20, right: 20),
+                              child: Container(
+                              padding: EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
                               height: size.height * 0.55,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(32),
-                                  color: Colors.white),
+                                  color: Colors.white
+                              ),
                               child: SingleChildScrollView(
                                 child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Amazonas",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 26,
-                                          )),
-                                      SizedBox(height: 4),
-                                      Row(children: [
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Amazonas",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 26,
+                                      )
+                                    ),
+                                    SizedBox(height: 4),
+                                    Row(
+                                      children: [
                                         Icon(
                                           Icons.location_pin,
                                           size: 14,
                                         ),
                                         SizedBox(width: 12),
                                         Text(
-                                          "Extremo sur de Colombia",
+                                          "Capital: Leticia",
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto'),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            fontFamily: 'Roboto',
+                                          ),
                                         )
-                                      ]),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text("Description",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 26,
-                                          )
-                                          //.merge(TextStyle(color: Colors.black)),
-                                          ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "Su capital es Leticia. Está ubicado en el extremo sur del país, en gran parte al sur de la línea ecuatorial, en la región Amazonia.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "Se compone en su totalidad de territorio de la Selva Amazónica. La porción meridional del departamento, al sur del río Putumayo, se denomina `Trapecio amazónico`, el cual incluye la triple frontera de Colombia, Perú y Brasil, y su límite sur es el río Amazonas.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text("Hidrografía",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 26,
-                                          )
-                                          //.merge(TextStyle(color: Colors.black)),
-                                          ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "Además del Amazonas, otros ríos del departamento son:",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Río Caquetá: el principal tributario del Amazonas.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Río Putumayo: que marca el límite con Perú.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Río Apaporis: que marca el límite septentrional con el departamento del Vaupés.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text("Parques naturales",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 26,
-                                          )
-                                          //.merge(TextStyle(color: Colors.black)),
-                                          ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "El departamento, dada su gran riqueza ecológica y medio ambiental, es sede de varios parques naturales nacionales colombianos:",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Parque nacional natural Amacayacu.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Parque nacional natural Cahuinarí.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Parque nacional natural Río Puré.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(
-                                        "+ Parque nacional natural Yaigojé Apaporis.",
-                                        maxLines: 4,
-                                        overflow: TextOverflow.fade,
-                                        style: appTheme.textTheme.bodyText1,
-                                      ),
-                                    ]),
+                                      ]
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      "Description",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      )
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Está ubicado en el extremo sur del país, en gran parte al sur de la línea ecuatorial, en la región Amazonia.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Se compone en su totalidad de territorio de la Selva Amazónica. La porción meridional del departamento, al sur del río Putumayo, se denomina `Trapecio amazónico`, el cual incluye la triple frontera de Colombia, Perú y Brasil, y su límite sur es el río Amazonas.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text("Hidrografía",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        )
+                                        //.merge(TextStyle(color: Colors.black)),
+                                        ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Además del Amazonas, otros ríos del departamento son:",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Río Caquetá: el principal tributario del Amazonas.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Río Putumayo: que marca el límite con Perú.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Río Apaporis: que marca el límite septentrional con el departamento del Vaupés.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text("Parques naturales",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        )
+                                        //.merge(TextStyle(color: Colors.black)),
+                                        ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "El departamento, dada su gran riqueza ecológica y medio ambiental, es sede de varios parques naturales nacionales colombianos:",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Parque nacional natural Amacayacu.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Parque nacional natural Cahuinarí.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Parque nacional natural Río Puré.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "+ Parque nacional natural Yaigojé Apaporis.",
+                                      maxLines: 4,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto',
+                                        height: 1.4,
+                                        ),
+                                    ),
+                                  ]),
                               ),
                             )),
                           ]),
@@ -437,7 +504,7 @@ class _HomeState extends State<Home> {
                                                     child: InkWell(
                                                       splashColor: Colors.green,
                                                       // splash color
-                                                      onTap: () async {
+                                                      /**onTap: () async {
                                                         await FirebaseServices().singOut();
                                                         Navigator.push(
                                                             context,
@@ -447,7 +514,7 @@ class _HomeState extends State<Home> {
                                                                         LoginPage()));
 
                                                         setBottomBarIndex(3);
-                                                      },
+                                                      },**/
                                                       // button pressed
                                                       child: Column(
                                                         mainAxisAlignment:
