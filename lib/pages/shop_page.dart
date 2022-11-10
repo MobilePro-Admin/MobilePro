@@ -236,7 +236,7 @@ class _ShopPageState extends State<ShopPage> {
                                       child: FloatingActionButton(
                                           backgroundColor: Colors.white,
                                           child: Icon(
-                                            Icons.shopping_basket,
+                                            Icons.favorite_rounded,
                                             color: Colors.lightGreen,
                                           ),
                                           elevation: 0.1,

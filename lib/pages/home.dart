@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.white.withOpacity(0.5),
           body: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Container(
                   child: Padding(
@@ -316,7 +316,7 @@ class _HomeState extends State<Home> {
                                                 setBottomBarIndex(0);
                                               },
                                               child:
-                                                  const Icon(Icons.shopping_basket)),
+                                                  const Icon(Icons.favorite_rounded)),
                                         ),
                                         Container(padding:const EdgeInsets.symmetric(
                                             vertical: 0, horizontal: 0),

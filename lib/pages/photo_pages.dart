@@ -170,7 +170,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                         MaterialPageRoute(
                                             builder: (context) => ShopPage()));
                                   },
-                                  child: const Icon(Icons.shopping_basket)),
+                                  child: const Icon(Icons.favorite_rounded)),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(

@@ -105,12 +105,32 @@ class _DetailsPageState extends State<DetailsPage> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.asset(
+                            Stack(
+                            children: [
+                            Image.asset(
+                                gridview.image, //gridviews.image,
+                                width: 600,
+                                height: 240,
+                                fit: BoxFit.cover,),
+                              Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      iconSize: 12,
+                                      icon: const Icon(
+                                        Icons.favorite_rounded,
+                                        size: 20,
+                                        color: Colors.red,
+                                      ),
+                                      onPressed: () {})),
+                          ]),
+                                  /*Image.asset(
                                     gridview.image, //gridviews.image,
                                     width: 600,
                                     height: 240,
                                     fit: BoxFit.cover,
-                                  ),
+                                  ),*/
                                   Row(
                                     children: [
                                       Expanded(
@@ -212,7 +232,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         MaterialPageRoute(
                                             builder: (context) => ShopPage()));
                                   },
-                                  child: const Icon(Icons.shopping_basket)),
+                                  child: const Icon(Icons.favorite_rounded)),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
