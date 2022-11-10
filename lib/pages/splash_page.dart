@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/pages/login_page.dart';
+
+import 'home.dart';
 
 
 class SplashPage extends StatefulWidget {
@@ -17,9 +20,16 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _closeSplash() async {
     Future.delayed(const Duration(seconds: 3), () async {
+      /*var currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null){
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const LoginPage()));
-    });
+    }else {*/
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()));
+     // }
+      });
   }
 
   @override
@@ -30,9 +40,9 @@ class _SplashPageState extends State<SplashPage> {
           image: DecorationImage(
               image: AssetImage('assets/images/splash.png'),
               fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8), BlendMode.modulate)),
-        ),
+              //colorFilter: ColorFilter.mode(
+                  //Colors.white.withOpacity(0.8), BlendMode.modulate)),
+          )),
       ),
     );
   }
