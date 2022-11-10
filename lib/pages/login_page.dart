@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled2/pages/home.dart';
 import 'package:untitled2/pages/register_page.dart';
+import 'package:untitled2/services/firebase_api.dart';
 import 'package:untitled2/services/firebase_services.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,8 +15,39 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final FirebaseApi _firebaseApi = FirebaseApi();
 
   final _formKey = GlobalKey<FormState>();
+
+  void _showMsg(String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+            label: 'Aceptar', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void _validateUser() async {
+    if (_email.text.isEmpty || _password.text.isEmpty) {
+      _showMsg("Debe ingresar correo y/o contraseña");
+    } else {
+      var result = await _firebaseApi.logInUser(_email.text, _password.text);
+      String msg = "";
+      if (result == "invalid-email") {
+        _showMsg("El correo no es valido");
+      } else if (result == "wrong-password") {
+        _showMsg("correo o contraseña es incorrecto");
+      } else if (result == "network-request-failed") {
+        _showMsg("Sin conexion a internet");
+      } else
+       Navigator.pushReplacement(
+          (context), MaterialPageRoute(builder: (context) => Home()));
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +85,14 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           controller: _email,
                           decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Correo',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
+                            border: OutlineInputBorder(),
+                            labelText: 'Correo',
+                            labelStyle: TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             fillColor: Colors.white24,
-                            filled: true,),
+                            filled: true,
+                          ),
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -73,13 +107,14 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           controller: _password,
                           decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Contraseña',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
+                            border: OutlineInputBorder(),
+                            labelText: 'Contraseña',
+                            labelStyle: TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             fillColor: Colors.white24,
-                            filled: true,                          ),
+                            filled: true,
+                          ),
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -87,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
                             }
                             return null;
                           },
-
                         ),
                         const SizedBox(
                           height: 16.0,
@@ -97,21 +131,39 @@ class _LoginPageState extends State<LoginPage> {
                             textStyle: const TextStyle(fontSize: 18),
                           ),
                           onPressed: () async {
-                            await FirebaseServices().singInWithGoogle();
+                            _validateUser();
 
-                            if (_formKey.currentState!.validate()) {
+                           if (_formKey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text('Processing Data')),
                               );
                             }
+                          },
+                          child: const Text('Iniciar'),
+                        ),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white, onPrimary: Colors.black),
+                          icon: Image.network(
+                            'http://pngimg.com/uploads/google/google_PNG19635.png',
+                            height: 40,
+                            width: 40,
+                            fit: BoxFit.cover,
+                          ),
+                          /*FaIcon(FontAwesomeIcons.google,color: Colors.red, ),*/
+                          label: const Text('Iniciar con Google'),
+                          onPressed: () async {
+                            await FirebaseServices().singInWithGoogle();
 
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Home()));
                           },
-                          child: const Text('Iniciar'),
                         ),
                         const SizedBox(
                           height: 8.0,

@@ -41,7 +41,7 @@ class RESTAPI {
   ];
 
   Future<List<PlaceModel>> getAllPlaces() async {
-    await Future.delayed(Duration(milliseconds: 950));
+    await Future.delayed(Duration(milliseconds: 900));
     return dummyAllPlaces;
   }
 }

@@ -2,6 +2,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled2/data/gridview.dart';
+import 'package:untitled2/models/model_gridview.dart';
+import 'package:untitled2/pages/components/placesModel.dart';
+import 'package:untitled2/pages/components/restAPI.dart';
 import 'package:untitled2/pages/home.dart';
 import 'package:untitled2/pages/shop_page.dart';
 import 'package:untitled2/pages/maps_page.dart';
@@ -9,15 +13,21 @@ import 'package:untitled2/pages/login_page.dart';
 import 'package:untitled2/pages/details_page.dart';
 import 'package:untitled2/pages/components/homepageStateProvider.dart';
 import 'package:untitled2/pages/components/travelplace.dart';
+import 'package:untitled2/services/firebase_services.dart';
 
 
 class PhotoPage extends StatefulWidget {
+  final ModelGridview? gridview;
+  const PhotoPage({Key? key, this.gridview,}) : super(key:key);
+
   @override
   _PhotoPageState createState() => _PhotoPageState();
+
 }
 
 class _PhotoPageState extends State<PhotoPage> {
   int _currentIndex = 0;
+
 
   setBottomBarIndex(index) {
     setState(() {
@@ -38,7 +48,10 @@ class _PhotoPageState extends State<PhotoPage> {
                   colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.screen)
               ),
             ),
-            child: Column(children: <Widget>[
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 20),
                   child: Center(
@@ -61,36 +74,38 @@ class _PhotoPageState extends State<PhotoPage> {
                           ),
                           child: SingleChildScrollView(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   "Lugares turísticos",
-                                  style: TextStyle(
+                                  style: TextStyle(height: 1.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 25,
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.all(16),
+
+                                  margin: EdgeInsets.all(1.0),
                                   child: StreamBuilder(
                                       stream: homepagestate.getAllPlaces().asStream(),
                                       builder: (context, snapshot) {
                                         if (!snapshot.hasData) {
-                                          return Container(
+                                          return Container(padding:const EdgeInsets.all(16),
                                               alignment: Alignment.center,
-                                              width: 50,
-                                              height: 50,
+                                              width: 200,
+                                              height: 200,
                                               child: const CircularProgressIndicator());
                                         }
                                         if (snapshot.connectionState == ConnectionState.waiting) {
-                                          return Container(
+                                          return Container(padding:const EdgeInsets.all(16),
                                               alignment: Alignment.center,
-                                              width: 50,
-                                              height: 50,
+                                              width: 200,
+                                              height: 200,
                                               child: const CircularProgressIndicator());
                                         }
-                                        return GridView.builder(
+                                        return GridView.builder(padding:const EdgeInsets.only(top: 20.0),
                                             itemCount: snapshot.data?.length,
                                             shrinkWrap: true,
                                             primary: false,
@@ -100,12 +115,15 @@ class _PhotoPageState extends State<PhotoPage> {
                                                     crossAxisSpacing: 16,
                                                     crossAxisCount: 2),
                                             itemBuilder: (context, index) {
+                                          final gridviews = gridview[index];
                                               return GestureDetector(
                                                   onTap: () {
+                                                    gridviews.copy();
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
-                                                            builder: (context) => DetailsPage()
+                                                            builder: (context) => DetailsPage(gridview: gridviews)
+
                                                         ),
                                                     );
                                                   },
@@ -123,7 +141,7 @@ class _PhotoPageState extends State<PhotoPage> {
                     ),
                   )),
 
-              // Padding(padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 child: Column(
@@ -308,7 +326,8 @@ class _PhotoPageState extends State<PhotoPage> {
                                         child: InkWell(
                                           splashColor: Colors.lightGreen,
                                           // splash color
-                                          onTap: () {
+                                          onTap: ()async {
+                                            await FirebaseServices().singOut();
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -359,6 +378,19 @@ class _PhotoPageState extends State<PhotoPage> {
         );
   }
 }
+
+
+/*class CardImages extends StatelessWidget {
+  const CardImages({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+*/
+
+
 
 class BNBCustomPainter extends CustomPainter {
   @override

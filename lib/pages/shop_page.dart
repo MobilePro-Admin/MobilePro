@@ -34,7 +34,10 @@ class _ShopPageState extends State<ShopPage> {
         ),
         child: Scaffold(
           backgroundColor: Colors.white.withOpacity(0.5),
-          body: Column(children: <Widget>[
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
             Container(
               child: Padding(
                 padding:

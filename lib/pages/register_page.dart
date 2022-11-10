@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+
+import '../models/user.dart';
+import '../services/firebase_api.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -10,6 +13,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final FirebaseApi _firebaseApi = FirebaseApi();
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
@@ -19,9 +23,54 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String _data = "Informacion: ";
 
+  void _saveUser(User user) async {
+    var result= await _firebaseApi.createUser(user);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+  }
+
+  void _registerUser(User user) async {
+    var result = await _firebaseApi.registerUser(user.email, user.password);
+    String msg = "";
+    if (result == "invalid-email") {
+      msg = "El correo no es valido";
+    } else if (result == "week-password") {
+      msg = "la contraseña debe tener minimo 6 caracteres";
+    } else if (result == "email-already-in-use") {
+      msg = "Correo ya existe";
+    } else if (result == "network-request-failed") {
+      msg = "Sin conexion a internet";
+    } else{
+      msg = " Usuario creado con exito";
+    user.uid = result;
+    _saveUser(user);
+  }
+
+    _ShowMsg(msg);
+
+  }
+
+  void _ShowMsg( String msg){
+    final scaffold =ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+        SnackBar(content: Text(msg),
+        action: SnackBarAction(
+          label:'Aceptar', onPressed: scaffold.hideCurrentSnackBar),
+         ),
+    );
+    
+  }
+
   void _onRegisterButtonClicked() {
     setState(() {
-      _data = "Nombre: ${_name.text} \nCorreo ${_email.text}";
+      if (_password.text == _repPassword.text) {
+        var user = User(
+          "", _name.text, _email.text, _password.text,);
+        _registerUser(user);
+
+      }else {
+        _ShowMsg("Contraseñas no coinciden");
+
+      }
     });
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled2/pages/photo_pages.dart';
 import 'package:untitled2/pages/shop_page.dart';
 //import 'package:untitled2/services/firebase_services.dart';
+import '../services/firebase_services.dart';
 import 'login_page.dart';
 import 'maps_page.dart';
 
@@ -272,7 +273,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const SizedBox(
-                  height: 9.2,
+                  height: 1,
                 ),
                 Container(
                   alignment: Alignment.bottomLeft,
@@ -502,7 +503,7 @@ class _HomeState extends State<Home> {
                                                     child: InkWell(
                                                       splashColor: Colors.green,
                                                       // splash color
-                                                      /**onTap: () async {
+                                                      onTap: () async {
                                                         await FirebaseServices().singOut();
                                                         Navigator.push(
                                                             context,
@@ -512,7 +513,7 @@ class _HomeState extends State<Home> {
                                                                         LoginPage()));
 
                                                         setBottomBarIndex(3);
-                                                      },**/
+                                                      },
                                                       // button pressed
                                                       child: Column(
                                                         mainAxisAlignment:

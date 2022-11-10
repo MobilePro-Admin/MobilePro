@@ -35,7 +35,10 @@ class _MapsPageState extends State<MapsPage> {
         ),
         child: Scaffold(
           backgroundColor: Colors.white.withOpacity(0.5),
-          body: Column(children: <Widget>[
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
             Container(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 16),
