@@ -1,16 +1,13 @@
 //import 'dart:html';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled2/data/gridview.dart';
-import 'package:untitled2/models/model_gridview.dart';
-import 'package:untitled2/pages/components/placesModel.dart';
-import 'package:untitled2/pages/components/restAPI.dart';
 import 'package:untitled2/pages/home.dart';
+import 'package:untitled2/pages/details_page.dart';
 import 'package:untitled2/pages/shop_page.dart';
 import 'package:untitled2/pages/maps_page.dart';
 import 'package:untitled2/pages/login_page.dart';
-import 'package:untitled2/pages/details_page.dart';
+import 'package:untitled2/data/gridview.dart';
+import 'package:untitled2/models/model_gridview.dart';
 import 'package:untitled2/pages/components/homepageStateProvider.dart';
 import 'package:untitled2/pages/components/travelplace.dart';
 import 'package:untitled2/services/firebase_services.dart';
@@ -115,7 +112,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                                     crossAxisSpacing: 16,
                                                     crossAxisCount: 2),
                                             itemBuilder: (context, index) {
-                                          final gridviews = gridview[index];
+                                              final gridviews = gridview[index];
                                               return GestureDetector(
                                                   onTap: () {
                                                     gridviews.copy();
@@ -123,7 +120,6 @@ class _PhotoPageState extends State<PhotoPage> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) => DetailsPage(gridview: gridviews)
-
                                                         ),
                                                     );
                                                   },

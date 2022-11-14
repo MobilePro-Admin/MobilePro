@@ -1,12 +1,12 @@
 
 class PlaceModel{
 
-  String placeTitle;
+  String name;
   double rating;
   String description;
   double rateperpackage;
-  String imgUrl;
+  String image;
 
-  PlaceModel({this.placeTitle = "",this.rateperpackage = 0.0,this.rating = 0.0,this.description = "",this.imgUrl = ""});
+  PlaceModel({this.name = "",this.rateperpackage = 0.0,this.rating = 0.0,this.description = "",this.image = ""});
 
 }

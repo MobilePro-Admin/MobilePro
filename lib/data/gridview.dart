@@ -8,7 +8,8 @@ const gridview = <ModelGridview>[
       description: "Leticia es la capital del departamento del Amazonas ubicada en el extremo sur del territorio"
           " colombiano. Es una ciudad con inmensa diversidad cultural, animal, vegetal y étnica, se encuentra alejada "
           "de todas las zonas urbanas del país, se caracteriza por ser un puerto fluvial que ha tenido importancia "
-          "desde su descubrimiento, además de ser el principal atractivo turístico de esta zona del país."
+          "desde su descubrimiento, además de ser el principal atractivo turístico de esta zona del país.",
+      rating: 3.8,
   ),
   ModelGridview(
       id: 2,
@@ -17,7 +18,8 @@ const gridview = <ModelGridview>[
       description: "Es un lugar especial para observar a los delfines rosados, grises y otros animales en su hábitat natural, "
       "un espacio rodeado de selva exuberante con grandes árboles y senderos para realizar caminatas."
           " Los delfines más pequeños son grises, y los más grandes son de piel rosada, "
-      "estos delfines son únicos en el mundo. Podemos contemplar sus juegos y piruetas en el lago amazónico."
+      "estos delfines son únicos en el mundo. Podemos contemplar sus juegos y piruetas en el lago amazónico.",
+      rating: 5.0,
 
   ),
   ModelGridview(
@@ -31,7 +33,8 @@ const gridview = <ModelGridview>[
           "ecológico mediante la conservación y protección de áreas naturales. Fue creado en 1975 y en 1987 se "
           "amplió a la extensión actual de 293.500 hectáreas (ha). Este territorio representa cerca del 40% de "
           "la superficie total del Trapecio Amazónico y presenta una forma de embudo en su sector sur. "
-          "Presenta un ecosistema de selva húmeda tropical cálida y bosques inundables."
+          "Presenta un ecosistema de selva húmeda tropical cálida y bosques inundables.",
+      rating: 4.2,
   ),
   ModelGridview(
       id: 4,
@@ -40,7 +43,8 @@ const gridview = <ModelGridview>[
       description: "La Reserva Natural Marasha es Amazonas al ciento por ciento, la magia de la selva de la que "
           "tantos hablan en miles de relatos empieza a ser experimentada por los visitantes que sienten como sus "
           "sentidos y sus cuerpos son elementos receptores bendecidos por sensaciones únicas, experiencias sublimes "
-          "que solo se disfrutan en este reino de los dioses indígenas preparado para el disfrute de todos."
+          "que solo se disfrutan en este reino de los dioses indígenas preparado para el disfrute de todos.",
+      rating: 3.2,
   ),
   ModelGridview(
       id: 5,
@@ -51,6 +55,7 @@ const gridview = <ModelGridview>[
           "el reino de esta especie en el Amazonas y por qué no, en el mundo entero."
           "La Isla Arara, más conocida como la de Los Micos, es una isla fluvial convertida en un "
           "destino muy reconocido por albergar como población a primates amazónicos, ellos allí deambulan "
-          "libremente siendo los amos y dueños del lugar."
+          "libremente siendo los amos y dueños del lugar.",
+      rating: 4.9,
   ),
 ];

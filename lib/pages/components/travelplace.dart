@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:untitled2/pages/components/placesModel.dart';
 import 'package:untitled2/pages/components/rating.dart';
 
-Widget travelCard(PlaceModel placeModel) => Stack(
+Widget travelCard(PlaceModel locationData) => Stack(
   children: [
     SizedBox(
       height: double.maxFinite,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Image(
-          image: AssetImage(placeModel.imgUrl),
+          image: AssetImage(locationData.image),
           fit: BoxFit.cover,
         ),
       ),
@@ -41,7 +41,7 @@ Widget travelCard(PlaceModel placeModel) => Stack(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              placeModel.placeTitle,
+              locationData.name,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -50,7 +50,7 @@ Widget travelCard(PlaceModel placeModel) => Stack(
             ),
             Row(
               children: [
-               rating(rating: placeModel.rating)
+               rating(rating: locationData.rating)
               ],
             )
           ],
