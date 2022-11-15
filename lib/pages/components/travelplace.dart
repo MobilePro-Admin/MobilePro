@@ -1,10 +1,24 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:untitled2/pages/components/placesModel.dart';
+import 'package:untitled2/boxes.dart';
+import 'package:untitled2/models/local_favorites.dart';
+import 'package:untitled2/models/model_gridview.dart';
 import 'package:untitled2/pages/components/rating.dart';
 
-Widget travelCard(PlaceModel locationData) => Stack(
+void _onFavoriteButtonClicked(ModelGridview locationData) async {
+  var localFavorite = LocalFavorites()
+  ..id = locationData.id
+  ..name = locationData.name
+  ..image = locationData.image
+  ..description = locationData.description
+  ..rating = locationData.rating;
+
+  final box = Boxes.getFavoritesBox();
+  box.add(localFavorite);
+}
+
+Widget travelCard(ModelGridview locationData) => Stack(
   children: [
     SizedBox(
       height: double.maxFinite,
@@ -17,17 +31,21 @@ Widget travelCard(PlaceModel locationData) => Stack(
       ),
     ),
     Positioned(
-        right: 0,
-        top: 0,
-        child: IconButton(
-            padding: EdgeInsets.zero,
-            iconSize: 12,
-            icon: const Icon(
-              Icons.favorite_rounded,
-              size: 20,
-              color: Colors.red,
-            ),
-            onPressed: () {})),
+      right: 0,
+      top: 0,
+      child: IconButton(
+        padding: EdgeInsets.zero,
+        iconSize: 12,
+        icon: const Icon(
+          Icons.favorite_border,
+          size: 20,
+          color: Colors.red,
+        ),
+        onPressed: () {
+          _onFavoriteButtonClicked(locationData);
+        },
+      ),
+    ),
     Positioned(
       bottom: 0,
       left: 0,

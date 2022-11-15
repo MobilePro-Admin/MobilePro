@@ -63,7 +63,7 @@ class _PhotoPageState extends State<PhotoPage> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.only(top: 26, left: 20, right: 20),
+                          padding: const EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
                           height: size.height * 0.55,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32),
@@ -83,8 +83,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                   ),
                                 ),
                                 Container(
-
-                                  margin: EdgeInsets.all(1.0),
+                                  margin: const EdgeInsets.all(1.0),
                                   child: StreamBuilder(
                                       stream: homepagestate.getAllPlaces().asStream(),
                                       builder: (context, snapshot) {
@@ -123,7 +122,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                                         ),
                                                     );
                                                   },
-                                                  child: travelCard(snapshot.data![index]),
+                                                  child: travelCard(gridviews),
                                               );
                                             },
                                         );

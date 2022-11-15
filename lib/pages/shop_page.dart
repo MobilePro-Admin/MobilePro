@@ -1,485 +1,368 @@
-//import 'dart:html';
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:untitled2/boxes.dart';
+import 'package:untitled2/models/local_favorites.dart';
+import 'package:untitled2/pages/components/rating.dart';
 import 'package:untitled2/pages/photo_pages.dart';
 import 'home.dart';
 import 'login_page.dart';
 import 'maps_page.dart';
 
-class ShopPage extends StatefulWidget {
-  @override
-  _ShopPageState createState() => _ShopPageState();
-}
-
-class _ShopPageState extends State<ShopPage> {
-  int _currentIndex = 0;
-
-  setBottomBarIndex(index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+class ShopPage extends StatelessWidget {
+  const ShopPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    ThemeData appTheme = Theme.of(context);
-    return Container(
+    final Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/splash.png'),
-              fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8), BlendMode.modulate)),
+            image: const AssetImage('assets/images/splash.png'),
+            fit: BoxFit.fill,
+            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.modulate),
+          ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.white.withOpacity(0.5),
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-            Container(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 1, vertical: 16),
-                child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          height: size.height * 0.25,
-                          child: Image(
-                            image: AssetImage('assets/images/store.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                            child: Container(
-                          padding:
-                              EdgeInsets.only(top: 26, left: 20, right: 20),
-                          height: size.height * 0.55,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              color: Colors.white),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Amazonas",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 26,
-                                      )),
-                                  SizedBox(height: 4),
-                                  Row(children: [
-                                    Icon(
-                                      Icons.location_pin,
-                                      size: 14,
-                                    ),
-                                    SizedBox(width: 12),
-                                    Text(
-                                      "Extremo sur de Colombia",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          fontFamily: 'Roboto'),
-                                    )
-                                  ]),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text("Description",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 26,
-                                      )
-                                      //.merge(TextStyle(color: Colors.black)),
-                                      ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Su capital es Leticia. Está ubicado en el extremo sur del país, en gran parte al sur de la línea ecuatorial, en la región Amazonia.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Se compone en su totalidad de territorio de la Selva Amazónica. La porción meridional del departamento, al sur del río Putumayo, se denomina `Trapecio amazónico`, el cual incluye la triple frontera de Colombia, Perú y Brasil, y su límite sur es el río Amazonas.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text("Hidrografía",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 26,
-                                      )
-                                      //.merge(TextStyle(color: Colors.black)),
-                                      ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Además del Amazonas, otros ríos del departamento son:",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Río Caquetá: el principal tributario del Amazonas.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Río Putumayo: que marca el límite con Perú.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Río Apaporis: que marca el límite septentrional con el departamento del Vaupés.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text("Parques naturales",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 26,
-                                      )
-                                      //.merge(TextStyle(color: Colors.black)),
-                                      ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "El departamento, dada su gran riqueza ecológica y medio ambiental, es sede de varios parques naturales nacionales colombianos:",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Parque nacional natural Amacayacu.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Parque nacional natural Cahuinarí.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Parque nacional natural Río Puré.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "+ Parque nacional natural Yaigojé Apaporis.",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.fade,
-                                    style: appTheme.textTheme.bodyText1,
-                                  ),
-                                ]),
-                          ),
-                        )),
-                      ]),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 9.2,
-            ),
-            Center(
-              child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 20),
+              child: Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(
+                      height: size.height * 0.25,
+                      child: const Image(
+                        image: AssetImage('assets/images/store.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 0),
+                      padding: const EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
+                      height: size.height * 0.55,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32),
+                        color: Colors.white
+                      ),
+                      child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: Container(
-                                width: size.width,
-                                height: 95,
-                                child: Stack(
-                                  //overflow: Overflow.visible,
-                                  children: [
-                                    CustomPaint(
-                                      size: Size(size.width, 96),
-                                      painter: BNBCustomPainter(),
-                                    ),
-                                    Center(
-                                      heightFactor: 1.5,
-                                      child: FloatingActionButton(
-                                          backgroundColor: Colors.white,
-                                          child: Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.lightGreen,
-                                          ),
-                                          elevation: 0.1,
-                                          splashColor: Colors.lightGreen,
-                                          onPressed: () {}),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 0, horizontal: 5),
-                                      width: size.width,
-                                      height: 90,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.values[1],
-                                        children: [
-                                          SizedBox.fromSize(
-                                            size: Size(60, 60),
-                                            // button width and height
-                                            child: ClipOval(
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                // button color
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.lightGreen,
-                                                  // splash color
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    Home()));
-
-                                                    setBottomBarIndex(2);
-                                                  },
-                                                  // button pressed
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons.home,
-                                                        color: _currentIndex ==
-                                                                1
-                                                            ? Colors.lightGreen
-                                                            : Colors
-                                                                .grey.shade400,
-                                                      ),
-                                                      // icon
-                                                      Text(
-                                                        "Inicio",
-                                                        style: TextStyle(
-                                                          color:
-                                                              _currentIndex == 1
-                                                                  ? Colors
-                                                                      .lightGreen
-                                                                  : Colors.grey
-                                                                      .shade400,
-                                                        ),
-                                                      ),
-                                                      // text
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox.fromSize(
-                                            size: Size(60, 60),
-                                            // button width and height
-                                            child: ClipOval(
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.lightGreen,
-                                                  // splash color
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PhotoPage()));
-
-                                                    setBottomBarIndex(2);
-                                                  },
-                                                  // button pressed
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons.photo_library,
-                                                        color: _currentIndex ==
-                                                                1
-                                                            ? Colors.lightGreen
-                                                            : Colors
-                                                                .grey.shade400,
-                                                      ),
-                                                      // icon
-                                                      Text(
-                                                        "Galería",
-                                                        style: TextStyle(
-                                                          color:
-                                                              _currentIndex == 1
-                                                                  ? Colors
-                                                                      .lightGreen
-                                                                  : Colors.grey
-                                                                      .shade400,
-                                                        ),
-                                                      ),
-                                                      // text
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox.fromSize(
-                                            size: Size(60, 60),
-                                            // button width and height
-
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                            ),
-                                          ),
-                                          SizedBox.fromSize(
-                                            size: Size(60, 60),
-                                            // button width and height
-                                            child: InkWell(
-                                              splashColor: Colors.green,
-                                              // splash color
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MapsPage()));
-
-                                                setBottomBarIndex(2);
-                                              },
-                                              // button pressed
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.location_pin,
-                                                    color: _currentIndex == 2
-                                                        ? Colors.lightGreen
-                                                        : Colors.grey.shade400,
-                                                  ),
-                                                  // icon
-                                                  Text(
-                                                    "Mapa",
-                                                    style: TextStyle(
-                                                      color: _currentIndex == 2
-                                                          ? Colors.lightGreen
-                                                          : Colors
-                                                              .grey.shade400,
-                                                    ),
-                                                  ),
-                                                  // text
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox.fromSize(
-                                            size: Size(60, 60),
-                                            // button width and height
-                                            child: ClipOval(
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.lightGreen,
-                                                  // splash color
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                LoginPage()));
-
-                                                    setBottomBarIndex(2);
-                                                  },
-                                                  // button pressed
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons.logout,
-                                                        color: _currentIndex ==
-                                                                3
-                                                            ? Colors.lightGreen
-                                                            : Colors
-                                                                .grey.shade400,
-                                                      ), // icon
-                                                      Text(
-                                                        "Salir",
-                                                        style: TextStyle(
-                                                          color:
-                                                              _currentIndex == 3
-                                                                  ? Colors
-                                                                      .lightGreen
-                                                                  : Colors.grey
-                                                                      .shade400,
-                                                        ),
-                                                      ), // text
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                            const Text(
+                              "Mis favoritos",
+                              style: TextStyle(height: 1.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
                               ),
-                            )
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(1.0),
+                              child: _builListView(),
+                            ),
                           ],
                         ),
                       ),
-                      //    ]
                     ),
                   ],
                 ),
               ),
             ),
-          ]),
-
-          //)))])
-        ));
+            const SizedBox(height: 9.2),
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                      child: Column(
+                        children: [
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            child: SizedBox(
+                              width: size.width,
+                              height: 95,
+                              child: Stack(
+                                //overflow: Overflow.visible,
+                                children: [
+                                  CustomPaint(
+                                    size: Size(size.width, 96),
+                                    painter: BNBCustomPainter(),
+                                  ),
+                                  Center(
+                                    heightFactor: 1.5,
+                                    child: FloatingActionButton(
+                                      backgroundColor: Colors.white,
+                                      elevation: 0.1,
+                                      splashColor: Colors.lightGreen,
+                                      onPressed: () {},
+                                      child: const Icon(
+                                        Icons.favorite_rounded,
+                                        color: Colors.lightGreen,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                                    width: size.width,
+                                    height: 90,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.values[1],
+                                      children: [
+                                        SizedBox.fromSize(
+                                          size: const Size(60, 60),
+                                          // button width and height
+                                          child: ClipOval(
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              // button color
+                                              child: InkWell(
+                                                splashColor: Colors.lightGreen,
+                                                // splash color
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => const Home()
+                                                    ),
+                                                  );
+                                                },
+                                                // button pressed
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.home,
+                                                      color: Colors.grey.shade400,
+                                                    ),
+                                                    // icon
+                                                    Text(
+                                                      "Inicio",
+                                                      style: TextStyle(
+                                                        color: Colors.grey.shade400,
+                                                      ),
+                                                    ),
+                                                    // text
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox.fromSize(
+                                          size: const Size(60, 60),
+                                          // button width and height
+                                          child: ClipOval(
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                splashColor: Colors.lightGreen,
+                                                // splash color
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => const PhotoPage()
+                                                    ),
+                                                  );
+                                                },
+                                                // button pressed
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.photo_library,
+                                                      color: Colors.grey.shade400,
+                                                    ),
+                                                    // icon
+                                                    Text(
+                                                      "Galería",
+                                                      style: TextStyle(
+                                                        color: Colors.grey.shade400,
+                                                      ),
+                                                    ),
+                                                    // text
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox.fromSize(
+                                          size: const Size(60, 60),
+                                          // button width and height
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                          ),
+                                        ),
+                                        SizedBox.fromSize(
+                                          size: const Size(60, 60),
+                                          // button width and height
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            // splash color
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => MapsPage()
+                                                ),
+                                              );
+                                            },
+                                            // button pressed
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.location_pin,
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                                // icon
+                                                Text(
+                                                  "Mapa",
+                                                  style: TextStyle(
+                                                    color:Colors.grey.shade400,
+                                                  ),
+                                                ),
+                                                // text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox.fromSize(
+                                          size: const Size(60, 60),
+                                          // button width and height
+                                          child: ClipOval(
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                splashColor: Colors.lightGreen,
+                                                // splash color
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => const LoginPage()
+                                                    ),
+                                                  );
+                                                },
+                                                // button pressed
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.logout,
+                                                      color: Colors.grey.shade400,
+                                                    ), // icon
+                                                    Text(
+                                                      "Salir",
+                                                      style: TextStyle(
+                                                        color: Colors.grey.shade400,
+                                                      ),
+                                                    ), // text
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  _builListView() {
+    return ValueListenableBuilder<Box<LocalFavorites>>(
+      valueListenable: Boxes.getFavoritesBox().listenable(),
+      builder: (context, box, _) {
+        final placeBox = box.values.toList().cast<LocalFavorites>();
+        return ListView.builder(
+          itemCount: placeBox.length,
+          itemBuilder: (BuildContext context, int index) {
+            final place = placeBox[index];
+            return Stack(
+              children: [
+                SizedBox(
+                  height: double.maxFinite,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image(
+                      image: AssetImage(place.image as String),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 12,
+                    icon: const Icon(
+                      Icons.favorite_border,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12), color: Colors.black.withAlpha(90)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          place.name as String,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                          rating(rating: place.rating as double)
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+        );
+      }
+    );
   }
 }
 
@@ -495,7 +378,7 @@ class BNBCustomPainter extends CustomPainter {
     path.quadraticBezierTo(size.width * 0.20, 20, size.width * 0.35, 20);
     path.quadraticBezierTo(size.width * 0.40, 20, size.width * 0.40, 40);
     path.arcToPoint(Offset(size.width * 0.60, 40),
-        radius: Radius.circular(20.0), clockwise: false);
+        radius: const Radius.circular(20.0), clockwise: false);
     path.quadraticBezierTo(size.width * 0.60, 20, size.width * 0.65, 20);
     path.quadraticBezierTo(size.width * 0.80, 20, size.width, 40);
     path.lineTo(size.width, size.height);

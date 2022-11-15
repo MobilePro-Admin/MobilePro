@@ -51,12 +51,13 @@ class DetailsPage extends StatelessWidget {
           image: DecorationImage(
             image: const AssetImage('assets/images/splash.png'),
             fit: BoxFit.fill,
-            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.screen)),
+            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.screen),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 20),
               child: Center(
@@ -71,8 +72,7 @@ class DetailsPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                        top: 26, left: 20, right: 20),
+                      padding: const EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
                       height: size.height * 0.55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(32),
@@ -97,7 +97,7 @@ class DetailsPage extends StatelessWidget {
                                     padding: EdgeInsets.zero,
                                     iconSize: 12,
                                     icon: const Icon(
-                                      Icons.favorite_rounded,
+                                      Icons.favorite_border,
                                       size: 20,
                                       color: Colors.red,
                                     ),
