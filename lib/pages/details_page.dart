@@ -1,24 +1,64 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import 'package:untitled2/boxes.dart';
+
 import 'package:untitled2/pages/home.dart';
 import 'package:untitled2/pages/photo_pages.dart';
 import 'package:untitled2/pages/shop_page.dart';
 import 'package:untitled2/pages/maps_page.dart';
 import 'package:untitled2/pages/login_page.dart';
+
 import 'package:untitled2/models/model_gridview.dart';
+import 'package:untitled2/models/local_place.dart';
 import 'package:untitled2/pages/components/rating.dart';
 
-import 'package:untitled2/data/gridview.dart';
-import 'package:untitled2/pages/components/restAPI.dart';
-import 'package:untitled2/pages/components/locationDetails.dart';
-import 'package:untitled2/pages/components/placesModel.dart';
+class DetailsPage extends StatefulWidget {
+  final ModelGridview place;
 
+  const DetailsPage({Key? key, required this.place}) : super(key: key);
 
-class DetailsPage extends StatelessWidget {
-  final ModelGridview gridview;
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
 
-  const DetailsPage({Key? key, required this.gridview}) : super(key: key);
+class _DetailsPageState extends State<DetailsPage> {
+  var isFavorite = false;
+
+  @override
+  void initState() {
+    _getLocalPlace();
+    super.initState();
+  }
+
+  void _getLocalPlace() {
+    final box = Boxes.getFavoritesBox();
+    box.values.forEach((element) {
+      if (element.id == widget.place.id) {
+        isFavorite = true;
+      }
+    });
+  }
+
+  void _onFavoritesButtonClicked() async {
+    var localPlace = LocalPlace()
+      ..id = widget.place.id
+      ..name = widget.place.name
+      ..image = widget.place.image
+      ..description = widget.place.description
+      ..rating = widget.place.rating;
+
+    final box = Boxes.getFavoritesBox();
+
+    if (isFavorite) {
+      box.delete(localPlace.id);
+    } else {
+      box.put(localPlace.id, localPlace);
+    }
+
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +91,8 @@ class DetailsPage extends StatelessWidget {
           image: DecorationImage(
             image: const AssetImage('assets/images/splash.png'),
             fit: BoxFit.fill,
-            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.5), BlendMode.screen),
+            colorFilter: ColorFilter.mode(
+                Colors.white.withOpacity(0.5), BlendMode.screen),
           ),
         ),
         child: Column(
@@ -72,7 +113,8 @@ class DetailsPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 26, left: 20, right: 20, bottom: 26),
+                      padding: const EdgeInsets.only(
+                          top: 26, left: 20, right: 20, bottom: 26),
                       height: size.height * 0.55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(32),
@@ -85,7 +127,7 @@ class DetailsPage extends StatelessWidget {
                             Stack(
                               children: [
                                 Image.asset(
-                                  gridview.image, //gridviews.image,
+                                  widget.place.image,
                                   width: 600,
                                   height: 240,
                                   fit: BoxFit.cover,
@@ -96,12 +138,17 @@ class DetailsPage extends StatelessWidget {
                                   child: IconButton(
                                     padding: EdgeInsets.zero,
                                     iconSize: 12,
-                                    icon: const Icon(
-                                      Icons.favorite_border,
+                                    icon: Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
                                       size: 20,
-                                      color: Colors.red,
                                     ),
-                                    onPressed: () {})
+                                    color: Colors.red,
+                                    onPressed: (() {
+                                      _onFavoritesButtonClicked();
+                                    }),
+                                  ),
                                 ),
                               ],
                             ),
@@ -109,13 +156,15 @@ class DetailsPage extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(height: 8),
                                       Container(
-                                        padding: const EdgeInsets.only(bottom: 8),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
                                         child: Text(
-                                          gridview.name,
+                                          widget.place.name,
                                           style: const TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold,
@@ -124,7 +173,8 @@ class DetailsPage extends StatelessWidget {
                                       ),
                                       Text(
                                         "Amazonas, Colombia",
-                                        style: TextStyle(color: Colors.grey[500],
+                                        style: TextStyle(
+                                          color: Colors.grey[500],
                                         ),
                                       ),
                                     ],
@@ -132,7 +182,9 @@ class DetailsPage extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                  rating(rating: gridview.rating, color: Colors.black54)
+                                    rating(
+                                        rating: widget.place.rating,
+                                        color: Colors.black54)
                                   ],
                                 ),
                               ],
@@ -141,23 +193,23 @@ class DetailsPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                _buildButtonColumn(Colors.lightBlue, Icons.call, 'CONTACTO'),
-                                _buildButtonColumn(Colors.lightBlue, Icons.near_me, 'RUTA'),
-                                _buildButtonColumn(Colors.lightBlue, Icons.share, 'COMPARTIR'),
+                                _buildButtonColumn(
+                                    Colors.lightBlue, Icons.call, 'CONTACTO'),
+                                _buildButtonColumn(
+                                    Colors.lightBlue, Icons.near_me, 'RUTA'),
+                                _buildButtonColumn(
+                                    Colors.lightBlue, Icons.share, 'COMPARTIR'),
                               ],
                             ),
                             const SizedBox(height: 16),
                             Container(
                               padding: const EdgeInsets.all(10),
                               child: Text(
-                                gridview.description,
+                                widget.place.description,
                                 softWrap: true,
                                 textAlign: TextAlign.justify,
                               ),
                             )
-                            //margin: const EdgeInsets.all(16),
-                            //child: const Text("Aquí se llamaría el componente locationDetails, pero no sé cómo :( y se tendría que enviar como parámetros los valores de la tarjetica a la que se le hizo clic"),
-                            //locationDetails({placeTitle: "Leticia", imgUrl: "assets/images/leticia.jpg", rating: 3.8, description: "Es la capital del departamento y se encuentra a hora y media de Bogotá por vía aérea. Leticia es una ciudad muy visitada por los turistas, quienes fascinados por la exótica cultura amazónica llegan a ella desde diferentes lugares del mundo."})
                           ],
                         ),
                       ),
@@ -189,15 +241,18 @@ class DetailsPage extends StatelessWidget {
                               elevation: 0.1,
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ShopPage()));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ShopPage(),
+                                  ),
+                                );
                               },
                               child: const Icon(Icons.favorite_rounded),
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 0),
                             width: size.width,
                             height: 90,
                             child: Row(
@@ -206,45 +261,34 @@ class DetailsPage extends StatelessWidget {
                               children: [
                                 SizedBox.fromSize(
                                   size: const Size(60, 60),
-                                  // button width and height
                                   child: ClipOval(
                                     child: Material(
                                       color: Colors.transparent,
-                                      // button color
                                       child: InkWell(
                                         splashColor: Colors.lightGreen,
-                                        // splash color
                                         onTap: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => const Home()
+                                              builder: (context) =>
+                                                  const Home(),
                                             ),
                                           );
-                                          //setBottomBarIndex(1);
                                         },
-                                        // button pressed
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Icon(
                                               Icons.home,
                                               color: Colors.grey.shade400,
-                                              //color: _currentIndex == 1
-                                              // ? Colors.lightGreen
-                                              // : Colors.grey.shade400,
                                             ),
-                                            // icon
                                             Text(
                                               "Inicio",
                                               style: TextStyle(
                                                 color: Colors.grey.shade400,
-                                                  //color: _currentIndex == 1
-                                                  //  ? Colors.lightGreen
-                                                  //   : Colors.grey.shade400,
                                               ),
                                             ),
-                                            // text
                                           ],
                                         ),
                                       ),
@@ -256,41 +300,31 @@ class DetailsPage extends StatelessWidget {
                                   child: ClipOval(
                                     child: Material(
                                       color: Colors.transparent,
-                                      // button width and height
                                       child: InkWell(
                                         splashColor: Colors.lightGreen,
-                                        // splash color
                                         onTap: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => const PhotoPage()
+                                              builder: (context) =>
+                                                  const PhotoPage(),
                                             ),
                                           );
-                                          //setBottomBarIndex(0);
                                         },
-                                        // button pressed
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: const <Widget>[
                                             Icon(
                                               Icons.photo_library,
                                               color: Colors.lightGreen,
-                                              //color: _currentIndex == 0
-                                              //   ? Colors.lightGreen
-                                              //  : Colors.grey.shade400,
                                             ),
-                                            // icon
                                             Text(
                                               "Galería",
                                               style: TextStyle(
                                                 color: Colors.lightGreen,
-                                                  // color: _currentIndex == 0
-                                                  //   ? Colors.lightGreen
-                                                  //   : Colors.grey.shade400,
                                               ),
                                             ),
-                                            // text
                                           ],
                                         ),
                                       ),
@@ -299,7 +333,6 @@ class DetailsPage extends StatelessWidget {
                                 ),
                                 SizedBox.fromSize(
                                   size: const Size(60, 60),
-                                  // button width and height
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                   ),
@@ -309,20 +342,16 @@ class DetailsPage extends StatelessWidget {
                                   child: ClipOval(
                                     child: Material(
                                       color: Colors.transparent,
-                                      // button width and height
                                       child: InkWell(
                                         splashColor: Colors.lightGreen,
-                                        // splash color
                                         onTap: () {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      MapsPage()));
-
-                                          // setBottomBarIndex(2);
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MapsPage(),
+                                            ),
+                                          );
                                         },
-                                        // button pressed
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -330,21 +359,13 @@ class DetailsPage extends StatelessWidget {
                                             Icon(
                                               Icons.location_pin,
                                               color: Colors.grey.shade400,
-                                              // color: _currentIndex == 2
-                                              //   ? Colors.lightGreen
-                                              //  : Colors.grey.shade400,
                                             ),
-                                            // icon
                                             Text(
                                               "Mapa",
                                               style: TextStyle(
                                                 color: Colors.grey.shade400,
-                                                  // color: _currentIndex == 2
-                                                  //    ? Colors.lightGreen
-                                                  //    : Colors.grey.shade400,
-                                                  ),
+                                              ),
                                             ),
-                                            // text
                                           ],
                                         ),
                                       ),
@@ -356,20 +377,17 @@ class DetailsPage extends StatelessWidget {
                                   child: ClipOval(
                                     child: Material(
                                       color: Colors.transparent,
-                                      // button width and height
                                       child: InkWell(
                                         splashColor: Colors.lightGreen,
-                                        // splash color
                                         onTap: () {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginPage()));
-
-                                          // setBottomBarIndex(3);
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginPage(),
+                                            ),
+                                          );
                                         },
-                                        // button pressed
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -377,21 +395,13 @@ class DetailsPage extends StatelessWidget {
                                             Icon(
                                               Icons.logout,
                                               color: Colors.grey.shade400,
-                                              // color: _currentIndex == 3
-                                              //     ? Colors.lightGreen
-                                              //     : Colors.grey.shade400,
                                             ),
-                                            // icon
                                             Text(
                                               "Salir",
                                               style: TextStyle(
                                                 color: Colors.grey.shade400,
-                                                  // color: _currentIndex == 3
-                                                  //     ? Colors.lightGreen
-                                                  //     : Colors.grey.shade400,
-                                                  ),
+                                              ),
                                             ),
-                                            // text
                                           ],
                                         ),
                                       ),

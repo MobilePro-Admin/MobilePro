@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:untitled2/boxes.dart';
-import 'package:untitled2/models/local_favorites.dart';
-import 'package:untitled2/pages/components/rating.dart';
-import 'package:untitled2/pages/photo_pages.dart';
-import 'home.dart';
-import 'login_page.dart';
-import 'maps_page.dart';
+import 'package:provider/provider.dart';
 
-class ShopPage extends StatelessWidget {
+import 'package:hive_flutter/adapters.dart';
+
+import 'package:untitled2/boxes.dart';
+
+import 'package:untitled2/pages/home.dart';
+import 'package:untitled2/pages/photo_pages.dart';
+import 'package:untitled2/pages/maps_page.dart';
+import 'package:untitled2/pages/login_page.dart';
+
+import 'package:untitled2/models/local_place.dart';
+
+import 'package:untitled2/pages/components/homepageStateProvider.dart';
+import 'package:untitled2/pages/components/rating.dart';
+import 'package:untitled2/pages/components/travelplace.dart';
+
+class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
 
+  @override
+  State<ShopPage> createState() => _ShopPageState();
+}
+
+class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -311,90 +324,57 @@ class ShopPage extends StatelessWidget {
   }
 
   _builListView() {
-    return ValueListenableBuilder<Box<LocalFavorites>>(
-        valueListenable: Boxes.getFavoritesBox().listenable(),
-        builder: (context, box, _) {
-          final placeBox = box.values.toList().cast<LocalFavorites>();
-          return ListView.builder(
-            itemCount: placeBox.length,
-            itemBuilder: (BuildContext context, int index) {
-              final place = placeBox[index];
-              return Text(
-                place.name as String,
-                style: const TextStyle(
-                  height: 1.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),
-              );
-              /* return Stack(
-              children: [
-                SizedBox(
-                  height: double.maxFinite,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image(
-                      image: AssetImage(place.image as String),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    iconSize: 12,
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      size: 20,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12), color: Colors.black.withAlpha(90)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          place.name as String,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
+    return ValueListenableBuilder<Box<LocalPlace>>(
+      valueListenable: Boxes.getFavoritesBox().listenable(),
+      builder: (context, box, _) {
+        final placeBox = box.values.toList().cast<LocalPlace>();
+        return Column(
+          children: <Widget>[
+            SizedBox(
+              height: 400,
+              // wrap in Expanded
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: placeBox.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final place = placeBox[index];
+                  return Card(
+                    child: ListTile(
+                      leading: SizedBox(
+                        height: double.maxFinite,
+                        width: 100,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image(
+                            image: AssetImage(place.image as String),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        Row(
-                          children: [
-                          rating(rating: place.rating as double)
-                          ],
-                        )
-                      ],
+                      ),
+                      title: Text(place.name as String),
+                      subtitle: rating(rating: place.rating as double, color: Colors.black54),
+                      onLongPress: () {
+                        setState(() {
+                          place.delete();
+                        });
+                      },
                     ),
-                  ),
-                )
-              ],
-            ); */
-            },
-          );
-        });
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
 class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = new Paint()
+    Paint paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
 

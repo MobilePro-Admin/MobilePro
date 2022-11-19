@@ -22,7 +22,7 @@ Widget rating({double rating = 0.0, Color color = Colors.white}) {
                   color: Colors.yellow,
                   size: 16,
                 );
-              };
+              }
               return const Icon(Icons.star_border, color: Colors.yellow, size: 16);
             }),
             const SizedBox(width: 8,),

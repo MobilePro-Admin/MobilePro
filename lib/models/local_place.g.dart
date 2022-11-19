@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_favorites.dart';
+part of 'local_place.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class LocalFavoritesAdapter extends TypeAdapter<LocalFavorites> {
+class LocalPlaceAdapter extends TypeAdapter<LocalPlace> {
   @override
   final int typeId = 0;
 
   @override
-  LocalFavorites read(BinaryReader reader) {
+  LocalPlace read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LocalFavorites()
+    return LocalPlace()
       ..id = fields[0] as int?
       ..name = fields[1] as String?
       ..image = fields[2] as String?
@@ -25,7 +25,7 @@ class LocalFavoritesAdapter extends TypeAdapter<LocalFavorites> {
   }
 
   @override
-  void write(BinaryWriter writer, LocalFavorites obj) {
+  void write(BinaryWriter writer, LocalPlace obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -46,7 +46,7 @@ class LocalFavoritesAdapter extends TypeAdapter<LocalFavorites> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LocalFavoritesAdapter &&
+      other is LocalPlaceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

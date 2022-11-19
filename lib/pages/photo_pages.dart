@@ -1,15 +1,17 @@
-//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:untitled2/pages/home.dart';
 import 'package:untitled2/pages/details_page.dart';
 import 'package:untitled2/pages/shop_page.dart';
 import 'package:untitled2/pages/maps_page.dart';
 import 'package:untitled2/pages/login_page.dart';
+
 import 'package:untitled2/data/gridview.dart';
 import 'package:untitled2/models/model_gridview.dart';
 import 'package:untitled2/pages/components/homepageStateProvider.dart';
 import 'package:untitled2/pages/components/travelplace.dart';
+
 import 'package:untitled2/services/firebase_services.dart';
 
 class PhotoPage extends StatefulWidget {
@@ -135,10 +137,11 @@ class _PhotoPageState extends State<PhotoPage> {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DetailsPage(
-                                                                  gridview:
-                                                                      gridviews)),
+                                                        builder: (context) =>
+                                                            DetailsPage(
+                                                          place: gridviews,
+                                                        ),
+                                                      ),
                                                     );
                                                   },
                                                   child: travelCard(gridviews),
@@ -182,7 +185,7 @@ class _PhotoPageState extends State<PhotoPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ShopPage()));
+                                                    const ShopPage()));
                                       },
                                       child:
                                           const Icon(Icons.favorite_rounded)),
@@ -350,10 +353,12 @@ class _PhotoPageState extends State<PhotoPage> {
                                                 await FirebaseServices()
                                                     .singOut();
                                                 Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const LoginPage()));
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const LoginPage(),
+                                                  ),
+                                                );
 
                                                 setBottomBarIndex(3);
                                               },

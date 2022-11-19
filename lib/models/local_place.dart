@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'local_favorites.g.dart';
+part 'local_place.g.dart';
 
 @HiveType(typeId: 0)
-class LocalFavorites extends HiveObject{
+class LocalPlace extends HiveObject {
   @HiveField(0)
   int? id;
 

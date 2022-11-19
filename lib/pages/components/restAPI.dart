@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:untitled2/pages/components/placesModel.dart';
 
 class RESTAPI {
@@ -41,7 +40,7 @@ class RESTAPI {
   ];
 
   Future<List<PlaceModel>> getAllPlaces() async {
-    await Future.delayed(Duration(milliseconds: 900));
+    await Future.delayed(const Duration(milliseconds: 900));
     return dummyAllPlaces;
   }
 }
